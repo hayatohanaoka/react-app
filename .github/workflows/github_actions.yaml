@@ -28,3 +28,22 @@ jobs:
         run: npx playwright install --with-deps
       - name: run e2e
         run: npm run test:e2e
+  Run-back-e2e:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./back
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup Node.js 23
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23.0'
+          cache: npm
+          cache-dependency-path: ./back/package-lock.json
+      - name: Install dependencies
+        run: npm install
+      - name: run unit tests
+        run: npm run test
+      - name: run e2e
+        run: npm run test:e2e
