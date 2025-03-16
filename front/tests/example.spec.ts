@@ -1,9 +1,12 @@
 import { test, expect } from '@playwright/test';
-test.describe("top page test", () => {
-  test("top page test", async ({ page }) => {
+
+test.describe("トップページのテスト", () => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    const title = await page.locator("div nav p");
-    const targetText = await title.innerText();
-    expect(targetText).toBe("What's next?")
+  })
+
+  test("ユーザーはトップページにhello,worldを見ることができる", async({ page }) => {
+    const targetText = await page.locator("[data-testid='hello']").innerText();
+    expect(targetText).toBe("hello,world");
   })
 })
